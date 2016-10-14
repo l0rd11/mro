@@ -1,0 +1,11 @@
+
+-urzycie cnn powoduje znaczny spadek rozmiaru zbioru danych wejściowych do ok. 16 -17% stanu początkowego,
+ czyli skutkuje także skruceniem czasu predykcji przy nieznacznym zmniejszeniu jej dokładności ~1%
+
+- odchylenie standardowe jest dosyć niskie 2 - 3  więc można stąd wysnuc wniosek ze knn jest stosunkowo stabilne względem podziału zbioru na dane testowe i treningowe.
+
+- dla k = 1 sposub głosowania (z wagami "distance" ,lub bez "uniform") nie ma znaczenia. dowud identyczne wykresy
+
+- dla k = 5 sposub głosowania powoduje istotne zmiany w kształcie wykresu szczegulnie widoczne jezeji użyjemy wcześniej cnn do redukcji rozmiaru zbiorów wejściowych
+
+

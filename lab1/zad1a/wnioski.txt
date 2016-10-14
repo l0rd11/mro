@@ -1,0 +1,12 @@
+- metryka Euklidesowa robi się nie wystarczająca wraz z wzrostem wymiarowości wymiarów
+
+- wraz z rosnącą wymiarowością odległość do najbliższego punktu zbliża się
+    do odległości do najdalszego (dla kwerendy NN). maleje wariancja odległości
+    Wtym przypadku znajdowanie k-NN przestaje mieć większy sens
+
+- odchylenie standardowe maleje, a średnia odległość rośnie z tąd można wysnuć wniosek że,
+ punkty trafiają w te same miejsca, tworząc skupiska wraz z wzrostem wymiarów rośnie ta zależność.
+  wpływa na kNN to negatywnie na metode knn
+
+- knn nie nadaje sie dla przestreni wielo wymiarowych w swojej podstawowej formie można ją zastoąpić elipson - radius NN
+
