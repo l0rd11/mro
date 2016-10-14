@@ -1,0 +1,2 @@
+- metryka Euklidesowa robi się słaba dla wielu wymiarów (bo...)
+- odchylenie standardowe maleje, a średnia odległość rośnie -> punkty trafiają w te same miejsca, tworząc "klastry" -> wpływ na kNN
