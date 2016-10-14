@@ -23,7 +23,7 @@ def main():
     y_err = []
     wy = []
     wy_err = []
-    for n in range(2, 201):
+    for n in range(2, 41):
         ones = np.ones(n)
         coefficients = []
         withins = []

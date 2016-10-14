@@ -1,8 +1,12 @@
+import queue
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from sklearn import neighbors, datasets
+import warnings
 
+warnings.filterwarnings("ignore")
 
 def read_data(only_2_features=True):
     iris = datasets.load_iris()
@@ -27,7 +31,15 @@ def split_dataset(X, y, ratio):
     return np.array(X_training), np.array(y_training), np.array(X_test), np.array(y_test)
 
 
-def compute(X, cmap_bold, cmap_light, h, n_neighbors, weights, y):
+def compute(X,y, n_neighbors, weights, mode):
+    h = .02  # step size in the mesh
+
+    # Create color maps
+    cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
+    cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+    if mode == "cnn":
+        X, y = cnn(X, y, n_neighbors, weights)
+
     clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
     clf.fit(X, y)
     # Plot the decision boundary. For that, we will assign a color to each
@@ -47,12 +59,48 @@ def compute(X, cmap_bold, cmap_light, h, n_neighbors, weights, y):
     plt.ylim(yy.min(), yy.max())
     plt.title("3-Class classification (k = %i, weights = '%s')"
               % (n_neighbors, weights))
-    plt.show()
+    plt.savefig( "k" + str(n_neighbors) + "_weights" + weights + "_" + mode + ".png")
+    plt.clf()
 
-def compute2(all_X, all_y, n_neighbors, weights):
+def cnn(X,y, n_neighbors, weights):
+    X_store = []
+    y_store = []
+    bag = queue.Queue()
+    for i in range(X.shape[0]):
+        bag.put((X[i, :], y[i]))
+    p = bag.get()
+    X_store.append(p[0])
+    y_store.append(p[1])
+    n = 0
+    while not bag.empty() and n < bag.qsize():
+        n += 1
+        p = bag.get()
+        k = n_neighbors
+        X_step = np.array(X_store)
+        if len(X_store) <k:
+            k = len(X_store)
+        clf = neighbors.KNeighborsClassifier(k, weights=weights)
+        clf.fit(X_step, np.array(y_store))
+        if clf.predict(np.array(p[0])) == p[1]:
+            bag.put(p)
+        else:
+            X_store.append(p[0])
+            y_store.append(p[1])
+            n = 0
+    return np.array(X_store), np.array(y_store)
+
+
+def compute2(all_X, all_y, n_neighbors, weights,mode):
         accuracies = []
+        cnn_percents = []
         for i in range(10):
             X_training, y_training, X_test, y_test = split_dataset(all_X, all_y, 0.7)
+
+            if mode == "cnn":
+                len_before = X_training.shape[0]
+                X_training, y_training = cnn(X_training, y_training, n_neighbors, weights)
+                len_after = X_training.shape[0]
+                cnn_percents.append(float(len_after) / float(len_before) * 100.0)
 
             clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
             clf.fit(X_training, y_training)
@@ -63,23 +111,19 @@ def compute2(all_X, all_y, n_neighbors, weights):
                 if y_test[i] == predictions[i]:
                     correct += 1
             accuracies.append(float(correct) / float(len(predictions)) * 100.0)
-        print("Accuracy:", str(np.mean(accuracies)) + '%', 'StdDev:', np.std(accuracies))
-
+        print("Accuracy:", str(np.mean(accuracies)) + '%', 'StdDev:', np.std(accuracies), "_" ,mode )
+        if mode == "cnn":
+            print("CNN:", str(np.mean(cnn_percents)) + '%', 'StdDev:', np.std(cnn_percents))
 
 def main():
-    num_neighbors = [1, 5]
+    for mode in ['normal', 'cnn']:
+        for n_neighbors in [1, 5]:
+            for weights in ['uniform', 'distance']:
+                X, y = read_data()
+                all_X, all_y = read_data(False)
 
-    X, y = read_data()
-    all_X, all_y = read_data(False)
-    h = .02  # step size in the mesh
-
-    # Create color maps
-    cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
-    cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
-    for n_neighbors in num_neighbors:
-        for weights in ['uniform', 'distance']:
-            compute(X, cmap_bold, cmap_light, h, n_neighbors, weights, y)
-            compute2(all_X, all_y, n_neighbors, weights)
+                compute(X,y, n_neighbors, weights,mode)
+                compute2(all_X, all_y, n_neighbors, weights,mode)
 
 
 if __name__ == "__main__":
