@@ -1,0 +1,13 @@
+- no to już dla niskiej ilości komponętów 15 a nawet 5 da sie rozpoznać tważ
+
+- w moim przypadku też wydaje sie uznawać tylko jedną strone twarzy ważną a drugą za redundantną, i niezwykle istotne są okulary kture ubrałem w drugiej seri zdjęć
+
+- a dla pietnastu komponętów zdjęcie wygląda troche "lepiej" (nie istotne szczegułu stały sie ciemniejsze) niż przed obrubką . to raczej efekt uboczny i subiektywny
+
+- wystarczy 5 głównych składowych do sensownego odtworzenia zdjęć, przy 15 są już bardzo podobne do wejściowych a przy 50(właściwie 30 bo tyle jest zdjęć) nierozróżnialne( jeżeli nie liczyc jasności)
+
+- pierwotna wariancja to około 5 komponętów ma istotny udział,a powyżej 10 już praktycznie nie mają udziału
+
+- wizualizacja w 2 D wskazuje że pierwsza seria rużni sie istotnie od drugiej, a zdjęcia w obrębie serii są do siebie bardzo podobne
+
+- średnie selfie wygląda na "poruszone" możliwą przyczyną jest troche rużny kąt i odległość przy robienu zdjęć. stałe wydają sie usta, wąsy, włosy i wyrażnie widać okulary chociaż są tylko na połowie zdjęć

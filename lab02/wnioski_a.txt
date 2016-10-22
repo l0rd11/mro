@@ -1,0 +1,10 @@
+ - wektory własne dla każdego losowania punktów w kołach  preważnie układają sie inaczej
+    , dla krzyżyka znacznie lepiej (bo przynajmniej pokazują ogulny trend) ale nadal nie oddają struktury zbioru.
+
+ - pca z normalnym iloczynem skalarnum dla zbiorów nie linearyzowalnych się wogule nie nadaje bo nie przynosi porządanych efektów i może wprowadzić w błod wynikami
+
+ - dla takich zbiorów trzeba stosować kernel tricki. przynosi to dość wymierne efekty
+       cosinus przyniusł dobre efekty dla lini, a dla koła już nie ze względu na charakter tej mertyki
+       rbf przynosi ciekawe efekty w zależnośći od gamma,dla 15 udało mi sie uzyskać ładną separacje klas zdecydowanie lepszą dla koła a dla lini tylko nie znaczną punkty są nadal przemieszane
+
+   wniosek skuteczność pca zależy od charakteru danych wejściowych i należy mieć to nauwadze jeżeli wiemy cokolwiek o tych danych, możemy wybrać kernel trick lepiej do nich pasujący.
