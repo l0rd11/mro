@@ -1,0 +1,3 @@
+ - zdecydowanie najlepsze wyniki dla danego rozkładu klastrów daje kmeans++, ale jeżeli zbliżymy klastry do siebie tak żeby prawie sie nakładały to random prtition daje lepsze końcowe efekty(czasami)
+ - random partition najgożej zaczyna ale przeważnie kończy sie dobrym rezultatem 2 w kolejnożsi po kmeans++
+ - random i forgy zaczynają na podobnym poziomie ale forgy zbiega troche lepiej

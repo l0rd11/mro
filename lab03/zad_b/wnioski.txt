@@ -1,0 +1,9 @@
+- dla k = 32 uzyskujemy obraz o gorszej głębi kolrów niż orginalny choć akceptowalnej( może takie zdjęcie)
+- dla k = 32 spadek rozmiaru jest prawie dwukrotny z 990kb do 520kb przy zapisie w standartowym formacie png
+        wykożystując specyficzny format dla 32kolorowej palety można by osiągnąć ~173kb (jeden pixel = 4bity na kolor)
+        ten wynik można by jesze poprawić kożystając z własności zdjęcia a konkretnie tego że rozkład kolorów nie jest równomierny (Kodowanie Huffmana)
+- dla k = 16 spadek rozmiaru jest ponad dwu krotny z 990kb do 423kb
+- dla k = 8 spadek rozmiaru jest trzy krotny z 990kb do 330kb
+- plik bmp waży 1Mb a jpg 348 kb
+- także kmeans można by stosować jako metode kompresji stratnej ale dało by to gorsze efekty niż format jpg
+        jeśli chodzi o jakość a rozmiar wymagał by uzycia odpowiednio kodowanych plików, zato metoda wydaje się możliwa do wykożystania jako filtr artystyczny
