@@ -1,0 +1,4 @@
+- szerokość marginesu rośnie dla małych c <0.001 podczas gdy jakość pozostaje na podobnym poziomie wraz z wzrostem c
+    poza kernelem rbf ktury dla c =1 wykazuje idealne dopasowania
+- w przypadku wielomianowego podejścia margines właściwie zanika dla c >=0.01
+- naj dziwniejszym efektem jest brak obecności marginesu na wykresach rbf gdzie c < 1  najprawdopodobjiej jest to właściwośćtego kernela

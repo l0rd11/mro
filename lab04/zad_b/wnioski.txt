@@ -1,0 +1,3 @@
+- łączenie wyników daje całkiem dobre rezultaty chociaż nie idealne gdyż nie osiągnoł końcowy klasyfikator stuprocentowej skutecność
+    jest to wynik nie skutecznego svm(wielomianowego). myśle że na większym i bardziej złożonym zbioże danych ta metoda mogłaby pokazać co potrafi.
+    jako ciekawą modyfikacje można by wprowadzić funkcje wiarygodności podczas scalania dla karzdego klasyfikatora z osobna mogło by to dać ciekawe rezultaty.
