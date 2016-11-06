@@ -27,39 +27,65 @@ def load_dataset():
     return X, y
 
 
+def print_plot(X,y,c,kernel):
+    plt.figure()
+    plt.clf()
+    plt.scatter(X[:, 0], X[:, 1], c=y, zorder=10, cmap=plt.cm.Paired)
+    # Circle out the test data
+    plt.scatter(X[:, 0], X[:, 1], s=80, facecolors='none', zorder=10)
+    plt.axis('tight')
+    x_min = X[:, 0].min()
+    x_max = X[:, 0].max()
+    y_min = X[:, 1].min()
+    y_max = X[:, 1].max()
+    XX, YY = np.mgrid[x_min:x_max:200j, y_min:y_max:200j]
+    Z = clf.decision_function(np.c_[XX.ravel(), YY.ravel()])
+    # Put the result into a color plot
+    Z = Z.reshape(XX.shape)
+    plt.pcolormesh(XX, YY, Z > 0, cmap=plt.cm.Paired)
+    plt.contour(XX, YY, Z, colors=['k', 'k', 'k'], linestyles=['--', '-', '--'],
+                levels=[-.5, 0, .5])
+    plt.title(kernel)
+    plt.savefig(kernel + "_" + str(c) + ".png")
+
+
 if __name__ == "__main__":
     X, y = load_dataset()
+
+    fig = plt.figure()
+    ax = plt.gca()
+    fig1 = plt.figure()
+    ax1 = plt.gca()
     for kernel in ['linear','rbf','poly']:
-        for c in [0.0001,0.0005,0.001,0.005,0.01,0.05,1]:
+        avgs = []
+        stds = []
+        marg = []
+        margStds = []
+        C = [0.0001, 0.001, 0.01, 0.1,1]
+        for c in C:
             clf = SVC(kernel=kernel,C=c,degree=3)
             clf.fit(X, y)
             w = clf.dual_coef_.dot(clf.support_vectors_)
             margin = 2 / np.sqrt((w ** 2).sum())
             score = clf.score(X,y)
             print(kernel," margin ",margin," c = ",c , " score = ",score)
-            plt.figure()
-            plt.clf()
-            plt.scatter(X[:, 0], X[:, 1], c=y, zorder=10, cmap=plt.cm.Paired)
+            print_plot(X,y,c,kernel)
+            avgs.append(score)
+            marg.append(margin)
+            stds.append(np.std(avgs))
+            margStds.append(np.std(marg))
 
-            # Circle out the test data
-            plt.scatter(X[:, 0], X[:, 1], s=80, facecolors='none', zorder=10)
+        ax.errorbar(C, avgs, yerr=stds, label=kernel)
+        ax1.errorbar(C, marg, yerr=margStds, label=kernel)
+    plt.clf()
+    fig = plt.figure()
+    plt.sca(ax)
+    ax.legend(loc=4)
+    plt.savefig('qualities_a.png')
+    plt.clf()
+    plt.sca(ax1)
+    ax1.legend(loc=4)
+    plt.savefig('margins_a.png')
 
-            plt.axis('tight')
-            x_min = X[:, 0].min()
-            x_max = X[:, 0].max()
-            y_min = X[:, 1].min()
-            y_max = X[:, 1].max()
-
-            XX, YY = np.mgrid[x_min:x_max:200j, y_min:y_max:200j]
-            Z = clf.decision_function(np.c_[XX.ravel(), YY.ravel()])
-
-            # Put the result into a color plot
-            Z = Z.reshape(XX.shape)
-            plt.pcolormesh(XX, YY, Z > 0, cmap=plt.cm.Paired)
-            plt.contour(XX, YY, Z, colors=['k', 'k', 'k'], linestyles=['--', '-', '--'],
-                        levels=[-.5, 0, .5])
-
-            plt.title(kernel)
-            plt.savefig(kernel + "_" + str(c) + ".png")
 
 
