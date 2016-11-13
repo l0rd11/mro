@@ -52,22 +52,6 @@ class StackingClassifier(object):
 
 
 
-
-def plot_confusion_matrix(cm, label, ax=None, cmap=plt.cm.Blues):
-    if not ax:
-        ax = plt.gca()
-    img = ax.imshow(cm, interpolation='nearest', cmap=cmap)
-    ax.set_title('Confusion matrix:\n' + label, fontsize=10)
-    plt.colorbar(img, ax=ax)
-    tick_marks = range(len(cm))
-    ax.set_xticks(tick_marks)
-    ax.set_xticklabels(tick_marks)
-    ax.set_yticks(tick_marks)
-    ax.set_yticklabels(tick_marks)
-    ax.set_ylabel('True label', fontsize=8)
-    ax.set_xlabel('Predicted label', fontsize=8)
-
-
 if __name__ == '__main__':
 
     dataset_name = "wines"
