@@ -1,0 +1,9 @@
+- rozkład wariancji nieznacznie sie rużni w zależności od użytej falki [db14,coif2]
+    coif2 daje większy nacisk na pierwszą składową co "dobże" widać na wykresach wariancji dla 15 składowych
+- analizując wykresy 2d można zauważyć że punkty po analizie falką coif2 znajdują sie bliżej siebie co mogło by być użyteczne dla dalszej obrubiki danych
+- ciekawe jest także to że chociaż zdjęcia są przetważane dodatkowo i ma to wpływ na wyniki wariancji i rozkład na płaszczyźie to zdjęcia wynikowe
+    nie rużnią sie niczym(zauważalnym w tej rozdzielczości) od zdjęć przetwożonych za pomocą tylko pca
+- prawdopodobne jest użycie innych falek mogło by dać ciekawe efekty, lub zmiana zbioru danych(zwiększenie rozdzielczości i lepszy dobur zdjęć, zdjęcia zaszumione można by wukożystać falki do odszumiania sygnału)
+
+
+
