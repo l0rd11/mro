@@ -1,22 +1,31 @@
-import matplotlib
 import scipy.io.wavfile as wav
 import numpy as np
 from sklearn.decomposition import KernelPCA
 from sklearn.preprocessing import normalize
-from matplotlib import pyplot as plt
 from sklearn.svm import SVC
+from matplotlib import pyplot as plt
+import matplotlib
+import warnings
+
+warnings.filterwarnings("ignore")
 
 import pywt
 
 
 def load_data(dir):
     rate, data = wav.read(dir + '0out.wav')
-    X = [wav.read(dir +  str(i) + 'out.wav') for i in range(7)]
-    y1 = np.array([0] * 3)
-    y2 = np.array([1] * 3)
+    X = [wav.read(dir + str(i) + 'out.wav') for i in range(21)]
+    y1 = np.array([0] * 10)
+    y2 = np.array([1] * 10)
     y = np.concatenate((y1, y2)).ravel()
-    return X, y, rate
+    plt.plot(X[1][1])
+    plt.savefig('ja')
+    plt.clf()
+    plt.plot(X[0][1])
+    plt.savefig('tymo')
+    plt.clf()
 
+    return X, y, rate
 
 
 if __name__ == '__main__':
@@ -30,15 +39,27 @@ if __name__ == '__main__':
         arrays.append(arr)
         coeff_slices.append(coeff_slice)
 
-
+    plt.plot(arrays[1])
+    plt.savefig('ja_dwt')
+    plt.clf()
+    plt.plot(arrays[0])
+    plt.savefig('tymo_dwt')
+    plt.clf()
     pca = KernelPCA(kernel='sigmoid').fit(arrays)
     transformed_X = pca.transform(arrays)
-
-    plt.scatter(transformed_X[:, 0], transformed_X[:, 1], c=y, cmap=matplotlib.colors.ListedColormap(["red", "blue"]))
+    plt.plot(transformed_X[1])
+    plt.savefig('ja_pca')
+    plt.clf()
+    plt.plot(transformed_X[0])
+    plt.savefig('tymo_pca')
+    plt.clf()
+    plt.scatter(transformed_X[1:21][:, 0], transformed_X[1:21][:, 1], c=y,
+                cmap=matplotlib.colors.ListedColormap(["red", "blue"]))
+    # plt.scatter(transformed_X[0][:, 0], transformed_X[0][:, 1])
     plt.title("2D")
     plt.savefig('2d.png')
 
     clf = SVC()
-    clf.fit(transformed_X[0:6],y)
+    clf.fit(transformed_X[1:21], y)
 
-    print(clf.predict(transformed_X[6]))
+    print(clf.predict(transformed_X[0]))
